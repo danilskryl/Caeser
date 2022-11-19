@@ -23,7 +23,7 @@ public class Main {
                 secondAnswer = sc.nextShort();
                 if (secondAnswer == 1) {
                     try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-                        System.out.print("Введите путь с текстовым файлом, который нужно зашифровать: ");
+                        System.out.print("\n\nВведите путь с текстовым файлом, который нужно зашифровать: ");
                         String path = reader.readLine();
                         System.out.print("\nВведите код: ");
                         String stringPath = "encrypted.txt";
@@ -44,11 +44,12 @@ public class Main {
                         }
                         break;
                     } catch (IOException e) {
+                        System.err.println("\n\n\nВведите корректный путь к файлу!");
                         throw new RuntimeException(e);
                     }
                 } else if (secondAnswer == 2) {
                     try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-                        System.out.print("Введите путь с текстовым файлом, который нужно расшифровать: ");
+                        System.out.print("\n\nВведите путь с текстовым файлом, который нужно расшифровать: ");
                         String path = reader.readLine();
                         System.out.print("\nВведите код: ");
                         int key = sc.nextInt();
@@ -62,6 +63,7 @@ public class Main {
                             System.out.println(Caeser.encrypt(text, key, true));
                             break;
                         } catch (IOException e) {
+                            System.err.println("\n\n\nВведите корректный путь к файлу!");
                             throw new RuntimeException();
                         }
                     } catch (IOException e) {
