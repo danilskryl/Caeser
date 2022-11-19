@@ -19,4 +19,9 @@ public class Caeser {
             return symbol;
         }
     }
+
+    public static String brutForce(String path) {
+
+        return null;
+    }
 }
