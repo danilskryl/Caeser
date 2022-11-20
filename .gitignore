@@ -2,6 +2,7 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+readme.md
 
 ### Eclipse ###
 .apt_generated
