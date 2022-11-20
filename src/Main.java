@@ -17,6 +17,7 @@ public class Main {
             }
         } while (true);
 
+
         if (answer == 1) {
             do {
                 System.out.print("\nВыберите режим шифровщика: \n1 - Зашифровать текст \n2 - Расшифровать текст \nВыбранный режим: ");
@@ -28,9 +29,6 @@ public class Main {
                         System.out.print("\nВведите код: ");
                         String stringPath = "encrypted.txt";
                         Path targetPath = Path.of("encrypted.txt");
-                        if (Files.notExists(targetPath)) {
-                            Files.createFile(targetPath);
-                        }
                         int key = sc.nextInt();
                         try (FileReader fileReader = new FileReader(path); FileWriter fileWriter = new FileWriter(stringPath)) {
                             int count;
@@ -39,7 +37,8 @@ public class Main {
                                 sb.append((char) count);
                             }
                             String text = sb.toString();
-                            String result = Caeser.encrypt(text, key, false);
+                            if (Files.notExists(targetPath)) { Files.createFile(targetPath); }
+                            String result = Caeser.encryptAndDecipher(text, key, false);
                             fileWriter.write(result);
                         }
                         break;
@@ -60,7 +59,7 @@ public class Main {
                                 sb.append((char) count);
                             }
                             String text = sb.toString();
-                            System.out.println(Caeser.encrypt(text, key, true));
+                            System.out.println(Caeser.encryptAndDecipher(text, key, true));
                             break;
                         } catch (IOException e) {
                             System.err.println("\n\n\nВведите корректный путь к файлу!");
@@ -73,5 +72,24 @@ public class Main {
             } while (true);
         }
 
+
+        if (answer == 2) {
+            System.out.print("\nВведите путь до файла, который нужно взломать: ");
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+                String path = reader.readLine();
+                try (FileReader fileReader = new FileReader(path)) {
+                    int count;
+                    StringBuilder sb = new StringBuilder();
+                    while ((count = fileReader.read()) != -1) {
+                        sb.append((char) count);
+                    }
+                    String text = sb.toString();
+                    System.out.println("\nНачинаем взламывать шифр\n\n");
+                    System.out.println("Вероятнее всего, Ваш текст: " + Caeser.brutForce(text));
+                }
+            } catch (IOException e) {
+                System.err.println("\n\n\nВведите корректный путь к файлу");
+            }
+        }
     }
 }
